@@ -12,6 +12,7 @@ class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    console.log(event.target);
     const newGuest = {
       name: event.target[0].value,
       lastName: event.target[1].value,
@@ -19,6 +20,8 @@ class App extends Component {
     this.setState({
       guests: [...this.state.guests, newGuest],
     });
+    event.target[0].value = "";
+    event.target[1].value = "";
   }
 
   render() {
@@ -29,7 +32,12 @@ class App extends Component {
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="first-name">Nombre</label>
-                <input type="text" className="form-control" name="first-name" />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="first-name"
+                  value={this.state.name}
+                />
               </div>
 
               <div className="form-group">
