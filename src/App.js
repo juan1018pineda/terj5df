@@ -4,23 +4,39 @@ class App extends Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleName = this.handleName.bind(this);
+    this.handleLastName = this.handleLastName.bind(this);
 
     this.state = {
       guests: [],
+      name: "",
+      lastName: "",
     };
+  }
+
+  handleName(event) {
+    this.setState({
+      name: event.target.value,
+    });
+  }
+
+  handleLastName(event) {
+    this.setState({
+      lastName: event.target.value,
+    });
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const newGuest = {
-      name: event.target[0].value,
-      lastName: event.target[0].value,
+      name: this.state.name,
+      lastName: this.state.lastName,
     };
     this.setState({
-      guests: [...this.state.guests, newGuest],
+      guests: this.state.guests.concat(newGuest),
+      name: "",
+      lastName: "",
     });
-    event.target[0].value = "";
-    event.target[1].value = "";
   }
 
   render() {
@@ -35,13 +51,20 @@ class App extends Component {
                   type="text"
                   className="form-control"
                   name="first-name"
+                  onChange={this.handleName}
                   value={this.state.name}
                 />
               </div>
 
               <div className="form-group">
                 <label htmlFor="last-name">Apellido</label>
-                <input type="text" className="form-control" name="last-name" />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="last-name"
+                  onChange={this.handleLastName}
+                  value={this.state.lastName}
+                />
               </div>
 
               <div className="action">
